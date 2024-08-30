@@ -1,0 +1,19 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: example-job
+  namespace: test
+spec:
+  completions: 3
+  parallelism: 2
+  template:
+    metadata:
+      name: example-job
+      labels:
+        app: example-job
+    spec:
+      containers:
+      - name: example
+        image: busybox
+        command: ['echo', 'Hello, Kubernetes!']
+      restartPolicy: Never
