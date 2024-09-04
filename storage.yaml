@@ -1,0 +1,59 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: rwo
+  namespace: test
+  labels:
+    app: rwo-pvc
+spec:
+  storageClassName: hostpath
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: rox
+  namespace: test
+  labels:
+    app: rox-pvc
+spec:
+  storageClassName: hostpath
+  accessModes:
+  - ReadOnlyMany
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: rwx
+  namespace: test
+  labels:
+    app: rwx-pvc
+spec:
+  storageClassName: hostpath
+  accessModes:
+  - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: rwop
+  namespace: test
+  labels:
+    app: rwop-pvc
+spec:
+  storageClassName: hostpath
+  accessModes:
+  - ReadWriteOncePod
+  resources:
+    requests:
+      storage: 1Gi

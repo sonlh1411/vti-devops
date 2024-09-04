@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mariadb
+  namespace: test
+spec:
+  serviceName: mariadb
+  selector:
+    matchLabels:
+      app: mysql 
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+      - name: mariadb
+        image: mariadb:latest
+        ports:
+        - containerPort: 3306
+        volumeMounts:
+        - name: vol-rwo
+          mountPath: /var/lib/mysql
+      volumes:
+        - name: vol-rwo
+          persistentVolumeClaim:
+            claimName: rwo
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: test
+  name: nginx-deployment
+  labels:
+    apps: nginx
+spec:
+  replicas: 0
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 80
+        resources:
+          limits:
+            memory: "256Mi"
+            cpu: "128m"
+          requests:
+            memory: "128Mi"
+            cpu: "64m"      
