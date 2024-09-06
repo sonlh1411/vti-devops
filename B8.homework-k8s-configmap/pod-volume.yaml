@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "configmap-pod-volume"
+  namespace: test
+  labels:
+    app: "pod"
+spec:
+  containers:
+  - name: node
+    image: "sonlh1196/vti-configmaps:v1"
+    resources:
+      limits:
+        cpu: 200m
+        memory: 500Mi
+      requests:
+        cpu: 100m
+        memory: 200Mi
+    ports:
+    - containerPort: 8080
+    volumeMounts: #using via volume
+    - name: configmap-volume
+      mountPath: /app
+    volumes:
+    - name: configmap-volume
+      configMap:
+        name: configmap-json

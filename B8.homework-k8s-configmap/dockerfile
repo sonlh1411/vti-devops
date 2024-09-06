@@ -1,0 +1,6 @@
+FROM node:16-alpine as build-stage
+RUN apk update
+WORKDIR /app
+COPY index.js ./
+ENTRYPOINT [ "node" ]
+CMD [ "index.js" ]

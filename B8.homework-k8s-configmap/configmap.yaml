@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: configmap-yaml
+  namespace: test
+data:
+  configmap.json: |
+    {
+      "TYPE": "yaml",
+      "DATABASE_USER": "test",
+      "DATABASE_PASSWORD": "123456",
+    }
